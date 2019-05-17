@@ -1,0 +1,14 @@
+<canvas #ramp></canvas>
+<form [formGroup]="colourRampForm">
+  <table style="background-color: #deebf3; border-radius: 8px" cellpadding="5">
+    <tr>
+      <th>Percent</th>
+      <th colspan="2">Colour</th>
+    </tr>
+    <tr *ngFor="let step of colourRampForm.controls.steps['controls']; let i = index" [formGroup]="step">
+      <td><input type="text" formControlName="percent" (change)="updateColourRamp()" /></td>
+      <td><input type="text" formControlName="colour" [(colorPicker)]="step.value.colour" [style.background]="step.value.colour" cpOutputFormat="hex" (colorPickerChange)="updateColour(step, $event)" /></td>
+      <td><button type="button" (click)="addControl(i)">+</button> <button type="button" (click)="removeControl(i)">-</button></td>
+    </tr>
+  </table>
+</form>

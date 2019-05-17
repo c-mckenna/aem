@@ -1,0 +1,12 @@
+<div [hidden]="!loaded">
+  <h1 style="position: fixed; right: 25px; bottom: 0px">{{ queryResult }}</h1>
+  <div>
+    <canvas #output (mousemove)="query($event)" (mouseout)="clearQueryResult()"></canvas>
+  </div>
+  <div style="margin: 1em">
+    <app-colour-ramp (colourRampUpdate)="updateColourRamp($event)"></app-colour-ramp>
+  </div>
+</div>
+<div *ngIf="!loaded">
+  <h1>Please wait, loading data...</h1>
+</div>

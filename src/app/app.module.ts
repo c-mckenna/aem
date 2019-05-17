@@ -1,16 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { WebGLComponent } from '../3d/webgl.component';
+import { ColourRampComponent } from '../3d/colour.ramp.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
-    AppComponent
+    WebGLComponent,
+    ColourRampComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    ColorPickerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [WebGLComponent]
 })
 export class AppModule { }
