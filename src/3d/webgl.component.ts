@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { createProgramInfo, ProgramInfo, resizeCanvasToDisplaySize } from 'twgl.js';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class WebGLComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.gl = this.output.nativeElement.getContext('webgl2');
+    this.gl = this.output.nativeElement.getContext('webgl2', {preserveDrawingBuffer: true});
 
     // Vertex shader from https://webglfundamentals.org/webgl/lessons/webgl-image-processing.html
     const vs = `
@@ -232,5 +233,11 @@ void main() {
   updateColourRamp(ramp): void {
     this.colourRamp = ramp;
     requestAnimationFrame(this.render.bind(this));
+  }
+
+  saveImage() {
+    this.output.nativeElement.toBlob((blob) => {
+      saveAs(blob, 'aem.png');
+    });
   }
 }

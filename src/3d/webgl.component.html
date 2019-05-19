@@ -5,6 +5,7 @@
   </div>
   <div style="margin: 1em">
     <app-colour-ramp (colourRampUpdate)="updateColourRamp($event)"></app-colour-ramp>
+    <button style="margin-top: 1em" (click)="saveImage()">Save image</button>
   </div>
 </div>
 <div *ngIf="!loaded">
