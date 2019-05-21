@@ -5,10 +5,10 @@ import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './webgl.component.html',
-  styleUrls: ['./webgl.component.css']
+  templateUrl: './webgl2.component.html',
+  styleUrls: ['./webgl2.component.css']
 })
-export class WebGLComponent implements AfterViewInit {
+export class WebGL2Component implements AfterViewInit {
   @ViewChild('output') output: ElementRef<HTMLCanvasElement>;
 
   private gl: WebGL2RenderingContext;
