@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { auditTime } from 'rxjs/operators';
 
 interface ColourRampStep {
   percent: number;
@@ -17,6 +17,9 @@ export class ColourRampComponent implements OnInit, AfterViewInit {
 
   @Output()
   colourRampUpdate = new EventEmitter();
+
+  @Input()
+  throttle = 0;
 
   private updateQueue = new Subject();
 
@@ -37,7 +40,7 @@ export class ColourRampComponent implements OnInit, AfterViewInit {
       steps: this.setDefaultSteps()
     });
 
-    this.updateQueue.pipe(debounceTime(0)).subscribe(() => {
+    this.updateQueue.pipe(auditTime(this.throttle)).subscribe(() => {
       const ramp = this.setColorRamp(this.colourRampForm.value);
       this.colourRampUpdate.emit(ramp);
     });
