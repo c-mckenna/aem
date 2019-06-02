@@ -4,7 +4,7 @@ import { createProgramInfo, ProgramInfo, resizeCanvasToDisplaySize } from 'twgl.
 import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-webgl1',
   templateUrl: './webgl1.component.html',
   styleUrls: ['./webgl1.component.css']
 })

@@ -23,6 +23,8 @@
     "file-saver": "^2.0.2",
     "ngx-color-picker": "^7.5.0",
     "rxjs": "~6.3.3",
+    "three": "^0.105.1",
+    "tiff": "^3.0.1",
     "tslib": "^1.9.0",
     "twgl.js": "^4.9.2",
     "zone.js": "~0.8.26"

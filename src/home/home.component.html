@@ -1,0 +1,16 @@
+<button (click)="switch('cpu')" [class.active]="mode === 'cpu'">CPU</button>
+<button (click)="switch('webgl1')" [class.active]="mode === 'webgl1'">WebGL 1</button>
+<button (click)="switch('webgl2')" [class.active]="mode === 'webgl2'">WebGL 2</button>
+<button (click)="switch('three')" [class.active]="mode === 'three'">Three.js</button>
+<ng-container *ngIf="mode === 'cpu'">
+  <app-root></app-root>
+</ng-container>
+<ng-container *ngIf="mode === 'webgl1'">
+  <app-webgl1></app-webgl1>
+</ng-container>
+<ng-container *ngIf="mode === 'webgl2'">
+  <app-webgl2></app-webgl2>
+</ng-container>
+<ng-container *ngIf="mode === 'three'">
+  <app-three></app-three>
+</ng-container>

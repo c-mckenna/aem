@@ -8,6 +8,11 @@ interface ColourRampStep {
   colour: string;
 }
 
+interface PresetRamp {
+  title: string;
+  ramp: ColourRampStep[];
+}
+
 @Component({
   selector: 'app-colour-ramp',
   templateUrl: './colour.ramp.component.html'
@@ -24,20 +29,36 @@ export class ColourRampComponent implements OnInit, AfterViewInit {
   private updateQueue = new Subject();
 
   colourRampForm: FormGroup;
-  defaultColours: ColourRampStep[] = [
-    { percent: 0.0, colour: '#404040' },
-    { percent: 0.1, colour: '#f4a582' },
-    { percent: 0.2, colour: '#fdfd2e' },
-    { percent: 0.3, colour: '#b2abd2' },
-    { percent: 1.0, colour: '#5e3c99' },
+
+  presetRamps: PresetRamp[] = [
+    {
+      title: 'Default',
+      ramp: [
+        { percent: 0.0, colour: '#404040' },
+        { percent: 0.1, colour: '#ff4e00' },
+        { percent: 0.2, colour: '#fdfd2e' },
+        { percent: 0.3, colour: '#b2abd2' },
+        { percent: 1.0, colour: '#5e3c99' }
+      ]
+    },
+    {
+      title: 'AEM Legend',
+      ramp: [
+        { percent: 0.0, colour: '#00008d' },
+        { percent: 0.46, colour: '#02ddfd' },
+        { percent: 0.96, colour: '#ffdd30' },
+        { percent: 1.0, colour: '#7d0306' }
+      ]
+    }
   ];
+  selectedPreset: PresetRamp = this.presetRamps[0];
 
   constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.colourRampForm = this.formBuilder.group({
-      steps: this.setDefaultSteps()
+      steps: this.getStepsForm(this.presetRamps[0].ramp)
     });
 
     this.updateQueue.pipe(auditTime(this.throttle)).subscribe(() => {
@@ -46,9 +67,9 @@ export class ColourRampComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private setDefaultSteps(): FormArray {
+  private getStepsForm(ramp): FormArray {
     const groups = [];
-    for (const step of this.defaultColours) {
+    for (const step of ramp) {
       groups.push(this.formBuilder.group({
         percent: [step.percent, Validators.required],
         colour: [step.colour, Validators.required]
@@ -104,6 +125,11 @@ export class ColourRampComponent implements OnInit, AfterViewInit {
 
   updateColour(step: FormGroup, $event: string) {
     step.patchValue({ colour: $event });
+    this.updateColourRamp();
+  }
+
+  usePreset(preset: PresetRamp): void {
+    this.colourRampForm.setControl('steps', this.getStepsForm(preset.ramp));
     this.updateColourRamp();
   }
 }

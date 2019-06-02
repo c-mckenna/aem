@@ -1,5 +1,8 @@
 <canvas #ramp></canvas>
 <form [formGroup]="colourRampForm">
+  <select [(ngModel)]="selectedPreset" (ngModelChange)="usePreset($event)" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let ramp of presetRamps" [ngValue]="ramp">{{ ramp.title }}</option>
+  </select>
   <table style="background-color: #deebf3; border-radius: 8px" cellpadding="5">
     <tr>
       <th>Percent</th>
