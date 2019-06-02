@@ -218,7 +218,7 @@ void main() {
     }
   }
 
-  private toggleHistogramEqualise(): void {
+  toggleHistogramEqualise(): void {
     this.histogramEqualise = !this.histogramEqualise;
 
     if (this.histogramEqualise) {
